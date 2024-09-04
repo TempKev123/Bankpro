@@ -1,0 +1,23 @@
+[
+    {
+        "sender": "kevin",
+        "receiver": "jave",
+        "amount": 700.0,
+        "balance": 200.79999999999995,
+        "date": "AUG 08 2003"
+    },
+    {
+        "sender": "kevin",
+        "receiver": "jave",
+        "amount": 3450.3,
+        "balance": 66550.5,
+        "date": "AUG 08 2003"
+    },
+    {
+        "sender": "kim",
+        "receiver": "joe",
+        "amount": 999.3,
+        "balance": 1.5,
+        "date": "AUG 08 2003"
+    }
+]
