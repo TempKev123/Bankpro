@@ -28,10 +28,25 @@ def recordTransaction(sender,receiver,amount,Balance,date):
 
     # Truncate any leftover data (in case the new data is shorter than the original)
         file.truncate()
-    return (f"{date}: {sender} transfered {receiver} {amount} baht. Remaining balance: {x}")
-    
+    bankTransfer(sender,amount)
+    print(f"{date}: {sender} transfered {receiver} {amount} baht. Remaining balance: {x}")
+
+def bankTransfer(ID,num):
+    if int(ID)<15:
+        g='Bank of America'
+    else:
+        g="Chase Bank"
+    with open('bank_record.json', 'r') as f: 
+        data = json.load(f) 
+    data[g] = data[g]+num  # New value
+    with open('bank_record.json', 'w') as f: 
+        json.dump(data, f) 
+
 #test code
-if False:
-    print(recordTransaction("kim","joe",float (999.30),float(1000.80),"AUG 08 2003"))
+if True:
+    print(recordTransaction("0001","0003",float (999),float(1000),"AUG 08 2003"))
     file = open('record.json', 'r')
     print (json.load(file))
+
+if False:
+    bankTransfer('0111',900)
