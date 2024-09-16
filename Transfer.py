@@ -1,4 +1,6 @@
 from balance import get_account_balance, update_account_balance
+from recorder_code import recordTransaction
+import datetime
 #MAIN DRIVER CODE HERE#
 def transfer_money(sender_id, receiver_id, amount):
     sender_balance = get_account_balance(sender_id)
@@ -35,6 +37,7 @@ def main():
         return
     
     transfer_money(sender_id, receiver_id, amount)
+    recordTransaction(sender_id,receiver_id,amount,99999,str(datetime.datetime.now()))
 
 if __name__ == "__main__":
     main()
