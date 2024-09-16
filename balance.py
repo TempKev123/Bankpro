@@ -17,7 +17,6 @@ def get_account_balance(account_id):
 # balance = get_account_balance('0001')
 # print(f"Account balance: {balance}")
 
-import json
 
 def update_account_balance(account_id, amount):
     # Load the JSON file
