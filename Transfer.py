@@ -37,7 +37,7 @@ def main():
         return
     
     transfer_money(sender_id, receiver_id, amount)
-    recordTransaction(sender_id,receiver_id,amount,99999,str(datetime.datetime.now()))
+    recordTransaction(sender_id,receiver_id,amount,get_account_balance(sender_id),str(datetime.datetime.now()))
 
 if __name__ == "__main__":
     main()
