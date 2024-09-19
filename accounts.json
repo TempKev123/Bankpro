@@ -2,7 +2,7 @@
     {
         "account_id": "0001",
         "account_name": "kevin",
-        "account_balance": 800.0
+        "account_balance": 0.0
     },
     {
         "account_id": "0002",
@@ -37,7 +37,7 @@
     {
         "account_id": "0008",
         "account_name": "brad",
-        "account_balance": 3400.0
+        "account_balance": 4700.0
     },
     {
         "account_id": "0009",
@@ -72,7 +72,7 @@
     {
         "account_id": "0015",
         "account_name": "grace",
-        "account_balance": 2400.0
+        "account_balance": 1100.0
     },
     {
         "account_id": "0016",
@@ -162,16 +162,16 @@
     {
         "account_id": "0033",
         "account_name": "leo",
-        "account_balance": 670.0
+        "account_balance": 0.0
     },
     {
         "account_id": "0034",
         "account_name": "scarlett",
-        "account_balance": 430.0
+        "account_balance": 1100.0
     },
     {
         "account_id": "0035",
         "account_name": "jack",
-        "account_balance": 2100.0
+        "account_balance": 2900.0
     }
 ]

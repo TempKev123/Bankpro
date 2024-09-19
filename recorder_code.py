@@ -1,15 +1,12 @@
 import json
-def recordTransaction(sender,receiver,amount,Balance,date):
-    x= Balance-amount
-    file = open('record.json', 'r')
-    data={
-    "sender": sender,
-    "receiver": receiver,
-    "amount": amount,
-    "balance": x,
-    "date": date
-  }
-    json_object = json.dumps(data, indent=5)
+def recordTransaction(sender,receiver,amount,date):
+    data= {
+        "sender": sender,
+        "receiver": receiver,
+        "amount": amount,
+        "date": date
+    }
+
     with open('record.json', 'r+') as file:
     # Load the current data into a list
         try:
@@ -28,23 +25,31 @@ def recordTransaction(sender,receiver,amount,Balance,date):
 
     # Truncate any leftover data (in case the new data is shorter than the original)
         file.truncate()
-    bankTransfer(sender,amount)
-    print(f"{date}: {sender} transfered {receiver} {amount} baht. Remaining balance: {x}")
+    
+    bankTransfer(sender,receiver,amount)
+    print(f"{date}: {sender} transfered {receiver} {amount} baht.")
 
-def bankTransfer(ID,num):
-    if int(ID)<15:
-        g='Bank of America'
-    else:
-        g="Chase Bank"
+def bankTransfer(sender, receiver, amount):
+    sender_bank = get_bank(sender)
+    receiver_bank = get_bank(receiver)
     with open('bank_record.json', 'r') as f: 
         data = json.load(f) 
-    data[g] = data[g]+num  # New value
+    
+    data[sender_bank] -= amount
+    data[receiver_bank] += amount
+    
     with open('bank_record.json', 'w') as f: 
         json.dump(data, f) 
 
+def get_bank(ID):
+    if int(ID)<15:
+        return "Bank of America"
+    else:
+        return "Chase Bank"
+
 #test code
 if True:
-    print(recordTransaction("0001","0003",float (999),float(1000),"AUG 08 2003"))
+    print(recordTransaction("0001","0003",float (999),"AUG 08 2003"))
     file = open('record.json', 'r')
     print (json.load(file))
 
