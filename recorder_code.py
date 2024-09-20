@@ -48,7 +48,7 @@ def get_bank(ID):
         return "Chase Bank"
 
 #test code
-if True:
+if False:
     print(recordTransaction("0001","0003",float (999),"AUG 08 2003"))
     file = open('record.json', 'r')
     print (json.load(file))
