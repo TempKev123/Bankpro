@@ -16,15 +16,15 @@ class TestTransferMoney(unittest.TestCase):
             400, 400]  # After transfer, new balances
 
         # Call the function
-        transfer_money("sender123", "receiver456", 100)
+        transfer_money("0001", "0020", 100)
 
         # Assertions
-        mock_get_account_balance.assert_any_call("sender123")
-        mock_get_account_balance.assert_any_call("receiver456")
-        mock_update_account_balance.assert_any_call("sender123", -100)
-        mock_update_account_balance.assert_any_call("receiver456", 100)
+        mock_get_account_balance.assert_any_call("0001")
+        mock_get_account_balance.assert_any_call("0020")
+        mock_update_account_balance.assert_any_call("0001", -100)
+        mock_update_account_balance.assert_any_call("0020", 100)
         mock_record_transaction.assert_called_once_with(
-            "sender123", "receiver456", 100, unittest.mock.ANY)
+            "0001", "0020", 100, unittest.mock.ANY)
 
     @patch('transfer.get_account_balance')
     def test_sender_not_found(self, mock_get_account_balance):
@@ -32,12 +32,12 @@ class TestTransferMoney(unittest.TestCase):
         mock_get_account_balance.return_value = None
 
         # Call the function
-        result = transfer_money("sender123", "receiver456", 100)
+        result = transfer_money("0001", "0020", 100)
 
         # Assertions
         self.assertIsNone(result)
-        mock_get_account_balance.assert_any_call("sender123")
-        mock_get_account_balance.assert_any_call("receiver456")
+        mock_get_account_balance.assert_any_call("0001")
+        mock_get_account_balance.assert_any_call("0020")
 
     @patch('transfer.get_account_balance')
     def test_receiver_not_found(self, mock_get_account_balance):
@@ -45,12 +45,12 @@ class TestTransferMoney(unittest.TestCase):
         mock_get_account_balance.side_effect = [500, None]
 
         # Call the function
-        result = transfer_money("sender123", "receiver456", 100)
+        result = transfer_money("0001", "0020", 100)
 
         # Assertions
         self.assertIsNone(result)
-        mock_get_account_balance.assert_any_call("sender123")
-        mock_get_account_balance.assert_any_call("receiver456")
+        mock_get_account_balance.assert_any_call("0001")
+        mock_get_account_balance.assert_any_call("0020")
 
     @patch('transfer.get_account_balance')
     def test_insufficient_funds(self, mock_get_account_balance):
@@ -58,12 +58,12 @@ class TestTransferMoney(unittest.TestCase):
         mock_get_account_balance.return_value = 50
 
         # Call the function
-        result = transfer_money("sender123", "receiver456", 100)
+        result = transfer_money("0001", "0020", 100)
 
         # Assertions
         self.assertIsNone(result)
-        mock_get_account_balance.assert_any_call("sender123")
-        mock_get_account_balance.assert_any_call("receiver456")
+        mock_get_account_balance.assert_any_call("0001")
+        mock_get_account_balance.assert_any_call("0020")
 
 
 class TestMain(unittest.TestCase):
@@ -72,20 +72,20 @@ class TestMain(unittest.TestCase):
     @patch('transfer.transfer_money')
     def test_successful_transfer(self, mock_transfer_money, mock_input):
         # Mocking return values
-        mock_input.side_effect = ["sender123", "receiver456", "100"]
+        mock_input.side_effect = ["0001", "0020", "100"]
 
         # Call the function
         main()
 
         # Assertions
         mock_transfer_money.assert_called_once_with(
-            "sender123", "receiver456", 100.0)
+            "0001", "0020", 100.0)
 
     @patch('builtins.input')
     @patch('builtins.print')
     def test_negative_amount(self, mock_print, mock_input):
         # Mocking return values
-        mock_input.side_effect = ["sender123", "receiver456", "-100"]
+        mock_input.side_effect = ["0001", "0020", "-100"]
 
         # Call the function
         main()
@@ -101,7 +101,7 @@ class TestMain(unittest.TestCase):
     @patch('builtins.print')
     def test_invalid_amount(self, mock_print, mock_input):
         # Mocking return values
-        mock_input.side_effect = ["sender123", "receiver456", "invalid"]
+        mock_input.side_effect = ["0001", "0020", "invalid"]
 
         # Call the function
         main()

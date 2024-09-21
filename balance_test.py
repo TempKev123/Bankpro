@@ -9,7 +9,7 @@ class TestGetAccountBalance(unittest.TestCase):
 
     @patch('builtins.open', new_callable=mock_open, read_data=json.dumps([
         {"account_id": "0001", "account_balance": 500.0},
-        {"account_id": "0002", "account_balance": 1000.0}
+        {"account_id": "0020", "account_balance": 1000.0}
     ]))
     def test_get_account_balance_success(self, mock_file):
         # Call the function
@@ -20,7 +20,7 @@ class TestGetAccountBalance(unittest.TestCase):
 
     @patch('builtins.open', new_callable=mock_open, read_data=json.dumps([
         {"account_id": "0001", "account_balance": 500.0},
-        {"account_id": "0002", "account_balance": 1000.0}
+        {"account_id": "0020", "account_balance": 1000.0}
     ]))
     def test_get_account_balance_account_not_found(self, mock_file):
         # Call the function
@@ -34,7 +34,7 @@ class TestUpdateAccountBalance(unittest.TestCase):
     
     @patch('builtins.open', new_callable=mock_open, read_data=json.dumps([
         {"account_id": "0001", "account_balance": 500.0},
-        {"account_id": "0002", "account_balance": 1000.0}
+        {"account_id": "0020", "account_balance": 1000.0}
     ]))
     def test_update_account_balance_success(self, mock_file):
         # Call the function
@@ -46,7 +46,7 @@ class TestUpdateAccountBalance(unittest.TestCase):
         # Check the file was written to with the correct data
         expected_data = [
             {"account_id": "0001", "account_balance": 350.0},
-            {"account_id": "0002", "account_balance": 1000.0}
+            {"account_id": "0020", "account_balance": 1000.0}
         ]
 
         # Aggregate all the write calls
@@ -60,7 +60,7 @@ class TestUpdateAccountBalance(unittest.TestCase):
 
     @patch('builtins.open', new_callable=mock_open, read_data=json.dumps([
         {"account_id": "0001", "account_balance": 500.0},
-        {"account_id": "0002", "account_balance": 1000.0}
+        {"account_id": "0020", "account_balance": 1000.0}
     ]))
     def test_update_account_balance_account_not_found(self, mock_file):
         # Call the function
@@ -71,7 +71,7 @@ class TestUpdateAccountBalance(unittest.TestCase):
 
     @patch('builtins.open', new_callable=mock_open, read_data=json.dumps([
         {"account_id": "0001", "account_balance": 500.0},
-        {"account_id": "0002", "account_balance": 1000.0}
+        {"account_id": "0020", "account_balance": 1000.0}
     ]))
     def test_update_account_balance_file_write_error(self, mock_file):
         # Mocking return values

@@ -13,8 +13,8 @@ class TestRecordTransaction(unittest.TestCase):
         # Patch open within the function
         with patch('builtins.open', new_callable=mock_open, read_data='[]') as mock_file:
             # Define test parameters
-            sender = "sender123"
-            receiver = "receiver456"
+            sender = "0001"
+            receiver = "0020"
             amount = 100
             date = "2024-09-19 23:00:00.111111"
 
@@ -63,8 +63,8 @@ class TestRecordTransaction(unittest.TestCase):
         # Patch open with invalid JSON (simulate empty or corrupted file)
         with patch('builtins.open', new_callable=mock_open, read_data='') as mock_file:
             # Define test parameters
-            sender = "sender123"
-            receiver = "receiver456"
+            sender = "0001"
+            receiver = "0020"
             amount = 100
             date = "2024-09-19 23:00:00.111111"
 
@@ -111,16 +111,16 @@ class TestRecordTransaction(unittest.TestCase):
         # Simulate existing data in the file
         existing_data = [
             {
-                "sender": "sender001",
-                "receiver": "receiver001",
+                "sender": "0001",
+                "receiver": "0020",
                 "amount": 200,
                 "date": "2024-09-18 22:00:00.000000"
             }
         ]
         with patch('builtins.open', new_callable=mock_open, read_data=json.dumps(existing_data)) as mock_file:
             # Define test parameters
-            sender = "sender123"
-            receiver = "receiver456"
+            sender = "0001"
+            receiver = "0020"
             amount = 100
             date = "2024-09-19 23:00:00.111111"
 
@@ -171,8 +171,8 @@ class TestRecordTransaction(unittest.TestCase):
 
         with patch('builtins.open', mock_open_rplus):
             # Define test parameters
-            sender = "sender123"
-            receiver = "receiver456"
+            sender = "0001"
+            receiver = "0020"
             amount = 100
             date = "2024-09-19 23:00:00.111111"
 
@@ -210,11 +210,11 @@ class TestBankTransfer(unittest.TestCase):
             mock_get_bank.side_effect = ["bankA", "bankB"]
 
             # Call the function
-            bankTransfer("sender123", "receiver456", 100)
+            bankTransfer("0001", "0020", 100)
 
             # Assertions
-            mock_get_bank.assert_any_call("sender123")
-            mock_get_bank.assert_any_call("receiver456")
+            mock_get_bank.assert_any_call("0001")
+            mock_get_bank.assert_any_call("0020")
 
             # Ensure the file was opened correctly for reading
             mock_file.assert_any_call('bank_record.json', 'r')
@@ -247,13 +247,13 @@ class TestBankTransfer(unittest.TestCase):
 
         # Call the function and assert that it raises FileNotFoundError
         with self.assertRaises(FileNotFoundError):
-            bankTransfer("sender123", "receiver456", 100)
+            bankTransfer("0001", "0020", 100)
 
         # Assertions
 
         # Ensure that get_bank was called for both sender and receiver
-        mock_get_bank.assert_any_call("sender123")
-        mock_get_bank.assert_any_call("receiver456")
+        mock_get_bank.assert_any_call("0001")
+        mock_get_bank.assert_any_call("0020")
 
         # Ensure the file was attempted to be opened in 'r' mode
         mock_file.assert_called_once_with('bank_record.json', 'r')
@@ -262,15 +262,15 @@ class TestGetBank(unittest.TestCase):
 
     def test_get_bank_below_threshold(self):
         # Test with ID below 15
-        self.assertEqual(get_bank("10"), "Bank of America")
+        self.assertEqual(get_bank("0001"), "Bank of America")
 
     def test_get_bank_at_threshold(self):
         # Test with ID exactly 15
-        self.assertEqual(get_bank("15"), "Chase Bank")
+        self.assertEqual(get_bank("0015"), "Chase Bank")
 
     def test_get_bank_above_threshold(self):
         # Test with ID above 15
-        self.assertEqual(get_bank("20"), "Chase Bank")
+        self.assertEqual(get_bank("0020"), "Chase Bank")
 
     def test_get_bank_non_numeric(self):
         # Test with non-numeric input
